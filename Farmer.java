@@ -64,6 +64,7 @@ public class Farmer {
      *
      */
     private void applyState() {
+        this.setObjectCoins(this.objectCoins - farmerStatus.getRegistrationFee());
         this.setStatusName(farmerStatus.toString());
         this.setLevelRequirement(farmerStatus.getLevelRequirement());
         this.setBonusPerProduce(farmerStatus.getBonusPerProduce());

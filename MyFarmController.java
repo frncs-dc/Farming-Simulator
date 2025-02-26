@@ -1,10 +1,10 @@
 /** Imports classes as required
  *
  */
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.swing.*;
 
 /** MyFarmController represents the Controller of the MVC structure of the game
  * 
@@ -83,7 +83,6 @@ public class MyFarmController implements ActionListener{
         }
         if(e.getActionCommand().equals("Upgrade Status")){
             player.registerStatus();
-            player.setObjectCoins(player.getObjectCoins() - player.registrationFee);
             updateView();
         }
 
