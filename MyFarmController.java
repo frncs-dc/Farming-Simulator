@@ -82,30 +82,8 @@ public class MyFarmController implements ActionListener{
             updateView();
         }
         if(e.getActionCommand().equals("Upgrade Status")){
-            String status = player.statusName;
-            switch(status){
-                case "":
-                    if(player.getFarmerLevel() >= new RegisteredFarmer().levelRequirement){
-                        player = player.registerStatus(player);
-                        player.setObjectCoins(player.getObjectCoins() - player.registrationFee);
-                        updateView();
-                    }
-                    break;
-                case "Registered":
-                    if(player.getFarmerLevel() >= new DistinguishedFarmer().levelRequirement){
-                        player = player.registerStatus(player);
-                        player.setObjectCoins(player.getObjectCoins() - player.registrationFee);
-                        updateView();
-                    }
-                    break;
-                case "Distinguished":
-                    if(player.getFarmerLevel() >= new LegendaryFarmer().levelRequirement){
-                        player = player.registerStatus(player);
-                        player.setObjectCoins(player.getObjectCoins() - player.registrationFee);
-                        updateView();
-                    }
-                    break;
-            }
+            player.registerStatus();
+            player.setObjectCoins(player.getObjectCoins() - player.registrationFee);
             updateView();
         }
 

@@ -18,6 +18,7 @@ public class Farmer {
     protected int waterBonusIncrease;
     protected int fertilizerBonusIncrease;
     protected int registrationFee;
+    protected FarmerState farmerStatus;
 
 
     /**
@@ -29,28 +30,47 @@ public class Farmer {
         this.farmerExperience = 0;
         this.day = 1;
         this.nextDay = false;
-        this.statusName = "";
-        this.levelRequirement = 0;
-        this.bonusPerProduce = 0;
-        this.seedCostReduction = 0;
-        this.waterBonusIncrease = 0;
-        this.fertilizerBonusIncrease = 0;
-        this.registrationFee = 0;
+        this.farmerStatus = FarmerState.UNREGISTERED;
+        applyState();
+//        this.statusName = "";
+//        this.levelRequirement = 0;
+//        this.bonusPerProduce = 0;
+//        this.seedCostReduction = 0;
+//        this.waterBonusIncrease = 0;
+//        this.fertilizerBonusIncrease = 0;
+//        this.registrationFee = 0;
     }
 
-    /** A method that registers a player's status
+    /** Method that upgrades the status of the farmer
      *
-     * @param player represents the player of class Farmer
-     * @return the new player with new data type
      */
-    public Farmer registerStatus(Farmer player) {
-        player = new RegisteredFarmer();
-        player.objectCoins = getObjectCoins();
-        player.farmerLevel = getFarmerLevel();
-        player.farmerExperience = getFarmerExperience();
-        player.farmerLevel = getFarmerLevel();
-        player.day = getDay();
-        return player;
+    public void registerStatus(){
+        FarmerState nextState = farmerStatus.upgrade(this);
+        if(nextState != farmerStatus){
+            setState(nextState);
+        }
+    }
+
+    /** Sets the new status of the farmer
+     *
+     * @param newState
+     */
+    public void setState(FarmerState newState) {
+        this.farmerStatus = newState;
+        applyState();
+    }
+
+    /** Applies the properties from the farmerStatus state
+     *
+     */
+    private void applyState() {
+        this.setStatusName(farmerStatus.toString());
+        this.setLevelRequirement(farmerStatus.getLevelRequirement());
+        this.setBonusPerProduce(farmerStatus.getBonusPerProduce());
+        this.setSeedCostReduction(farmerStatus.getSeedCostReduction());
+        this.setWaterBonusIncrease(farmerStatus.getWaterBonusIncrease());
+        this.setFertilizerBonusIncrease(farmerStatus.getFertilizerBonusIncrease());
+        this.setRegistrationFee(farmerStatus.getRegistrationFee());
     }
 
     /** Method that increments the day
@@ -294,5 +314,21 @@ public class Farmer {
      */
     public void setFertilizerBonusIncrease(int fertilizerBonusIncrease) {
         this.fertilizerBonusIncrease = fertilizerBonusIncrease;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public void setLevelRequirement(int levelRequirement) {
+        this.levelRequirement = levelRequirement;
+    }
+
+    public void setRegistrationFee(int registrationFee) {
+        this.registrationFee = registrationFee;
+    }
+
+    public void setFarmerStatus(FarmerState farmerStatus) {
+        this.farmerStatus = farmerStatus;
     }
 }
