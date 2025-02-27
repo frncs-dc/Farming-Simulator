@@ -29,7 +29,7 @@ public class Farmer {
         this.day = 1;
         this.nextDay = false;
         this.farmerStatus = FarmerState.UNREGISTERED;
-        applyState();
+        updateStatusBonus();
     }
 
     /** Method that upgrades the status of the farmer
@@ -44,17 +44,17 @@ public class Farmer {
 
     /** Sets the new status of the farmer
      *
-     * @param newState
+     * @param newState is the new status of the farmer
      */
     public void setState(FarmerState newState) {
         this.farmerStatus = newState;
-        applyState();
+        updateStatusBonus();
     }
 
     /** Applies the properties from the farmerStatus state
      *
      */
-    private void applyState() {
+    private void updateStatusBonus() {
         this.setObjectCoins(this.objectCoins - farmerStatus.getRegistrationFee());
         this.setStatusName(farmerStatus.toString());
         this.setBonusPerProduce(farmerStatus.getBonusPerProduce());
@@ -75,8 +75,8 @@ public class Farmer {
      * @param tile is representative of a tile of the board
      * @return final harvest price
      */
-    public float totalHarvestPrice(Tile tile){
-        float finalHarvestPrice = harvestTotal(tile) + waterBonus(tile) + fertilizerBonus(tile);
+    public float computeTotalHarvestPrice(Tile tile){
+        float finalHarvestPrice = computeHarvestTotal(tile) + computeWaterBonus(tile) + computeFertilizerBonus(tile);
 
         if(tile.getCrop().getCropType().equals("Flower")){
             finalHarvestPrice = finalHarvestPrice * 1.1f;
@@ -90,7 +90,7 @@ public class Farmer {
      * @param tile is representative of a tile of the board
      * @return total harvest value
      */
-    public float harvestTotal(Tile tile){
+    public float computeHarvestTotal(Tile tile){
         float harvestTotal = tile.getCrop().getProduceCount() * tile.getCrop().getBaseSelling();
 
         return harvestTotal;
@@ -101,14 +101,14 @@ public class Farmer {
      * @param tile is representative of a tile of the board
      * @return water bonus
      */
-    public float waterBonus(Tile tile){
+    public float computeWaterBonus(Tile tile){
         float waterBonus = 0;
 
         if(tile.getTimesWatered() > tile.getCrop().getWaterBonusLimit()){
             tile.setTimesWatered(tile.getCrop().getWaterBonusLimit());
         }
 
-        waterBonus = harvestTotal(tile) * 0.2f * (tile.getTimesWatered() - 1);
+        waterBonus = computeHarvestTotal(tile) * 0.2f * (tile.getTimesWatered() - 1);
 
         return waterBonus;
     }
@@ -118,14 +118,14 @@ public class Farmer {
      * @param tile is representative of a tile of the board
      * @return fertilizer bonus
      */
-    public float fertilizerBonus(Tile tile){
+    public float computeFertilizerBonus(Tile tile){
         float fertilizerBonus = 0;
 
         if(tile.getTimesFertilized() > tile.getCrop().getFertilizerBonusLimit()){
             tile.setTimesFertilized(tile.getCrop().getFertilizerBonusLimit());
         }
 
-        fertilizerBonus = harvestTotal(tile) * 0.5f * (tile.getTimesFertilized());
+        fertilizerBonus = computeHarvestTotal(tile) * 0.5f * (tile.getTimesFertilized());
 
         return fertilizerBonus;
     }
@@ -160,7 +160,7 @@ public class Farmer {
      * @param tile is representative of a tile of the board
      */
     public void harvest(Tile tile){
-        objectCoins += totalHarvestPrice(tile);
+        objectCoins += computeTotalHarvestPrice(tile);
         farmerExperience += tile.getCrop().getXpYield();
         tile.setTimesWatered(0);
         tile.setTimesFertilized(0);
@@ -242,7 +242,7 @@ public class Farmer {
         this.nextDay = nextDay;
     }
 
-    /** A method that gets the the bonus in produce
+    /** A method that gets the bonus in produce
      *
      * @return the bonus in produce
      */
@@ -308,9 +308,5 @@ public class Farmer {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
-    }
-
-    public void setFarmerStatus(FarmerState farmerStatus) {
-        this.farmerStatus = farmerStatus;
     }
 }
