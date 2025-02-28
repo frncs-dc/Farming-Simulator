@@ -39,7 +39,7 @@ public class MyFarmController implements ActionListener{
     public void updateView(){
         gui.setDay(player.getDay());
         gui.displayObjectCoins(player.getObjectCoins());
-        gui.displayFarmerStatus(player.statusName);
+        gui.displayFarmerStatus(player.getFarmerStatus().toString());
         gui.displayExperience(player.getFarmerExperience());
         gui.displayLevel(player.getFarmerLevel());
         model.setGameEnd(false);

@@ -11,11 +11,11 @@ public class Farmer {
     protected double farmerExperience;
     protected int day;
     protected boolean nextDay;
-    protected String statusName;
-    protected int bonusPerProduce;
-    protected int seedCostReduction;
-    protected int waterBonusIncrease;
-    protected int fertilizerBonusIncrease;
+    // protected String statusName;
+    // protected int bonusPerProduce;
+    // protected int seedCostReduction;
+    // protected int waterBonusIncrease;
+    // protected int fertilizerBonusIncrease;
     protected FarmerState farmerStatus;
 
 
@@ -56,11 +56,11 @@ public class Farmer {
      */
     private void updateStatusBonus() {
         this.setObjectCoins(this.objectCoins - farmerStatus.getRegistrationFee());
-        this.setStatusName(farmerStatus.toString());
-        this.setBonusPerProduce(farmerStatus.getBonusPerProduce());
-        this.setSeedCostReduction(farmerStatus.getSeedCostReduction());
-        this.setWaterBonusIncrease(farmerStatus.getWaterBonusIncrease());
-        this.setFertilizerBonusIncrease(farmerStatus.getFertilizerBonusIncrease());
+        // this.setStatusName(farmerStatus.toString());
+        // this.setBonusPerProduce(farmerStatus.getBonusPerProduce());
+        // this.setSeedCostReduction(farmerStatus.getSeedCostReduction());
+        // this.setWaterBonusIncrease(farmerStatus.getWaterBonusIncrease());
+        // this.setFertilizerBonusIncrease(farmerStatus.getFertilizerBonusIncrease());
     }
 
     /** Method that increments the day
@@ -247,66 +247,66 @@ public class Farmer {
      * @return the bonus in produce
      */
     public int getBonusPerProduce() {
-        return bonusPerProduce;
+        return this.farmerStatus.getBonusPerProduce();
     }
 
-    /** A method that sets the bonus in produce
-     *
-     * @param bonusPerProduce represents the bonus in produce
-     */
-    public void setBonusPerProduce(int bonusPerProduce) {
-        this.bonusPerProduce = bonusPerProduce;
-    }
+    // /** A method that sets the bonus in produce
+    //  *
+    //  * @param bonusPerProduce represents the bonus in produce
+    //  */
+    // public void setBonusPerProduce(int bonusPerProduce) {
+    //     this.bonusPerProduce = bonusPerProduce;
+    // }
 
     /** A method that gets the seed cost reduction
      *
      * @return the seed cost reduction
      */
     public int getSeedCostReduction() {
-        return seedCostReduction;
+        return this.farmerStatus.getSeedCostReduction();
     }
 
-    /** A method that sets the seed cost reduction
-     *
-     * @param seedCostReduction represents the reduction in seed cost
-     */
-    public void setSeedCostReduction(int seedCostReduction) {
-        this.seedCostReduction = seedCostReduction;
-    }
+    // /** A method that sets the seed cost reduction
+    //  *
+    //  * @param seedCostReduction represents the reduction in seed cost
+    //  */
+    // public void setSeedCostReduction(int seedCostReduction) {
+    //     this.seedCostReduction = seedCostReduction;
+    // }
 
     /** A method that gets the water bonus increase
      *
      * @return the increase in the water bonus limit
      */
     public int getWaterBonusIncrease() {
-        return waterBonusIncrease;
+        return this.farmerStatus.getWaterBonusIncrease();
     }
 
-    /** A method that sets the water bonus increase
-     *
-     * @param waterBonusIncrease the increase in the water bonus limit
-     */
-    public void setWaterBonusIncrease(int waterBonusIncrease) {
-        this.waterBonusIncrease = waterBonusIncrease;
-    }
+    // /** A method that sets the water bonus increase
+    //  *
+    //  * @param waterBonusIncrease the increase in the water bonus limit
+    //  */
+    // public void setWaterBonusIncrease(int waterBonusIncrease) {
+    //     this.waterBonusIncrease = waterBonusIncrease;
+    // }
 
     /** A method that gets the fertilizer bonus increase
      *
      * @return the increase in the fertilizer bonus limit
      */
     public int getFertilizerBonusIncrease() {
-        return fertilizerBonusIncrease;
+        return this.farmerStatus.getFertilizerBonusIncrease();
     }
 
-    /** A method that sets the fertilizer bonus increase
-     *
-     * @param fertilizerBonusIncrease represents the increase in the fertilizer bonus limit
-     */
-    public void setFertilizerBonusIncrease(int fertilizerBonusIncrease) {
-        this.fertilizerBonusIncrease = fertilizerBonusIncrease;
-    }
+    // /** A method that sets the fertilizer bonus increase
+    //  *
+    //  * @param fertilizerBonusIncrease represents the increase in the fertilizer bonus limit
+    //  */
+    // public void setFertilizerBonusIncrease(int fertilizerBonusIncrease) {
+    //     this.fertilizerBonusIncrease = fertilizerBonusIncrease;
+    // }
 
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
+    public FarmerState getFarmerStatus() {
+        return farmerStatus;
     }
 }
